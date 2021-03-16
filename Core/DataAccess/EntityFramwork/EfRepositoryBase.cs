@@ -28,7 +28,7 @@ namespace Core.DataAccess.EntityFramwork
         public T Get(Expression<Func<T, bool>> predicate)
         {
             using var context = new TContext();
-            return context.Set<T>().Find(predicate);
+            return context.Set<T>().SingleOrDefault(predicate);
         }
 
         public List<T> GetAll(Expression<Func<T, bool>> predicate = null)
