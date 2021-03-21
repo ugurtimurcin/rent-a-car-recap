@@ -15,5 +15,7 @@ namespace Business.Constants
         public static string PasswordError = "Password is not correct";
         public static string UserRegistered = "User succesfully registered";
         public static string UserExists = "User already exists";
+        public static string CarImageCountOverLimit = "Car image count must be less than or equals five";
+        public static string CarAlreadyRented = "Car already rented";
     }
 }
