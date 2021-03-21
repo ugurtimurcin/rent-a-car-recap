@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Business.Abstract
     {
         IDataResult<List<CarImage>> GetAll();
         IDataResult<CarImage> GetById(int id);
-        IResult Add(CarImage entity);
+        IResult Add(CarImage entity, List<IFormFile> files);
         IResult Update(CarImage entity);
         IResult Delete(CarImage entity);
     }
