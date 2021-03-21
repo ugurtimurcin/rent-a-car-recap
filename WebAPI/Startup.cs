@@ -50,6 +50,9 @@ namespace WebAPI
             {
                 new CoreModule()
             });
+
+            services.AddCors();
+
             services.AddControllers();
         }
 
@@ -61,7 +64,16 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200");
+            });
+
             app.UseRouting();
+
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
