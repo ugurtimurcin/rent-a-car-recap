@@ -64,10 +64,14 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureCustomExceptionMiddleware();
+
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:4200");
+                builder.WithOrigins("http://localhost:4200").AllowAnyHeader();
             });
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
