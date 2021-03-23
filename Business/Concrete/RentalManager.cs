@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,10 +22,10 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental entity)
         {
-            var result = BusinessRules.Run(CheckIfCarOnRent(entity.CarId));
+            var result = BusinessRules.Run(CheckIsCarAvailable(entity.CarId, entity.RentDate));
             if (result != null)
             {
                 return result;
@@ -54,13 +56,14 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckIfCarOnRent(int id)
+        private IResult CheckIsCarAvailable(int id, DateTime? date)
         {
-            var result = _rentalDal.Get(x => x.CarId == id);
-            if (result != null)
+            var car = _rentalDal.Get(x => x.Id == id);
+            if (car.ReturnDate == null || car.ReturnDate >= date )
             {
-                return new ErrorResult(Message.CarAlreadyRented);
+                return new ErrorResult(Message.CarIsOnRent);
             }
+
             return new SuccessResult();
         }
     }
