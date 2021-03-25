@@ -11,8 +11,8 @@ namespace Entities
     {
         public int Id { get; set; }
         public int CarId { get; set; }
-        public string ImagePath { get; set; } = "default-image.jpg";
-        public DateTime Date { get; set; } = DateTime.Now;
+        public string ImagePath { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }
