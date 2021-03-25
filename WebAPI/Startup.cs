@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Utilities.IoC;
 using Core.DependencyResolvers;
+using Business.Mapping.AutoMapper;
 
 namespace WebAPI
 {
@@ -50,6 +51,8 @@ namespace WebAPI
             {
                 new CoreModule()
             });
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddCors();
 
