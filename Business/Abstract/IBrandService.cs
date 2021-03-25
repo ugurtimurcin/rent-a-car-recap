@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace Business.Abstract
 {
     public interface IBrandService
     {
-        IDataResult<List<Brand>> GetAll();
-        IDataResult<Brand> GetById(int id);
-        IResult Add(Brand entity);
-        IResult Update(Brand entity);
-        IResult Delete(Brand entity);
+        IDataResult<List<BrandDto>> GetAll();
+        IDataResult<BrandDto> GetById(int id);
+        IResult Add(BrandDto entity);
+        IResult Update(BrandDto entity);
+        IResult Delete(BrandDto entity);
     }
 }

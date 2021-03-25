@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace Business.Abstract
 {
     public interface ICustomerService
     {
-        IDataResult<List<Customer>> GetAll();
-        IDataResult<Customer> GetById(int id);
-        IResult Add(Customer entity);
-        IResult Update(Customer entity);
-        IResult Delete(Customer entity);
+        IDataResult<List<CustomerDto>> GetAll();
+        IDataResult<CustomerDto> GetById(int id);
+        IResult Add(CustomerDto entity);
+        IResult Update(CustomerDto entity);
+        IResult Delete(CustomerDto entity);
     }
 }

@@ -1,10 +1,12 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -19,14 +21,16 @@ namespace Business.Concrete
     {
         private readonly ICarImageDal _carImageDal;
         private readonly IFileHelper _fileHelper;
+        private readonly IMapper _mapper;
 
-        public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper)
+        public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper, IMapper mapper)
         {
             _carImageDal = carImageDal;
             _fileHelper = fileHelper;
+            _mapper = mapper;
         }
 
-        public IResult Add(CarImage entity, List<IFormFile> files)
+        public IResult Add(CarImageDto entity, List<IFormFile> files)
         {
             var result = BusinessRules.Run(CheckImageCount(entity.CarId));
             if (result != null)
@@ -37,30 +41,30 @@ namespace Business.Concrete
             {
                 entity.ImagePath = Guid.NewGuid() + Path.GetExtension(file.FileName);
                 _fileHelper.Upload(entity.ImagePath, file);
-                _carImageDal.Add(new CarImage {CarId = entity.CarId, ImagePath = entity.ImagePath });
+                _carImageDal.Add(_mapper.Map<CarImage>(new CarImageDto { CarId = entity.CarId, ImagePath = entity.ImagePath }));
             }
             return new SuccessResult();
         }
 
-        public IResult Delete(CarImage entity)
+        public IResult Delete(CarImageDto entity)
         {
-            _carImageDal.Delete(entity);
+            _carImageDal.Delete(_mapper.Map<CarImage>(entity));
             return new SuccessResult();
         }
 
-        public IDataResult<List<CarImage>> GetAll()
+        public IDataResult<List<CarImageDto>> GetAll()
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
+            return new SuccessDataResult<List<CarImageDto>>(_mapper.Map<List<CarImageDto>>(_carImageDal.GetAll()));
         }
 
-        public IDataResult<CarImage> GetById(int id)
+        public IDataResult<CarImageDto> GetById(int id)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(x => x.Id == id));
+            return new SuccessDataResult<CarImageDto>(_mapper.Map<CarImageDto>(_carImageDal.Get(x => x.Id == id)));
         }
 
-        public IResult Update(CarImage entity)
+        public IResult Update(CarImageDto entity)
         {
-            _carImageDal.Update(entity);
+            _carImageDal.Update(_mapper.Map<CarImage>(entity));
             return new SuccessResult();
         }
 

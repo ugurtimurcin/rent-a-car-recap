@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
-using Entities;
-using Microsoft.AspNetCore.Http;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -43,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Color color)
+        public IActionResult Add(ColorDto color)
         {
             var result = _colorService.Add(color);
             if (result.Success)
@@ -54,7 +49,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("edit")]
-        public IActionResult Edit(Color color)
+        public IActionResult Edit(ColorDto color)
         {
             var result = _colorService.Update(color);
             if (result.Success)
@@ -65,7 +60,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult Delete(Color color)
+        public IActionResult Delete(ColorDto color)
         {
             var result = _colorService.Delete(color);
             if (result.Success)

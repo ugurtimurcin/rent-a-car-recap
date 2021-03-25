@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
@@ -14,27 +15,29 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         private readonly ICarDal _carDal;
+        private readonly IMapper _mapper;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, IMapper mapper)
         {
             _carDal = carDal;
+            _mapper = mapper;
         }
 
-        public IResult Add(Car entity)
+        public IResult Add(CarDto entity)
         {
-            _carDal.Add(entity);
+            _carDal.Add(_mapper.Map<Car>(entity));
             return new SuccessResult();
         }
 
-        public IResult Delete(Car entity)
+        public IResult Delete(CarDto entity)
         {
-            _carDal.Delete(entity);
+            _carDal.Delete(_mapper.Map<Car>(entity));
             return new SuccessResult();
         }
 
-        public IDataResult<List<Car>> GetAll()
+        public IDataResult<List<CarDto>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            return new SuccessDataResult<List<CarDto>>(_mapper.Map<List<CarDto>>(_carDal.GetAll()));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarsByBrand(int brandId)
@@ -42,9 +45,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(x=>x.BrandId == brandId));
         }
 
-        public IDataResult<Car> GetById(int id)
+        public IDataResult<CarDto> GetById(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(x => x.Id == id));
+            return new SuccessDataResult<CarDto>(_mapper.Map<CarDto>(_carDal.Get(x => x.Id == id)));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -52,9 +55,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public IResult Update(Car entity)
+        public IResult Update(CarDto entity)
         {
-            _carDal.Update(entity);
+            _carDal.Update(_mapper.Map<Car>(entity));
             return new SuccessResult();
         }
 

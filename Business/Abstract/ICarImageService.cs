@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace Business.Abstract
 {
     public interface ICarImageService
     {
-        IDataResult<List<CarImage>> GetAll();
-        IDataResult<CarImage> GetById(int id);
-        IResult Add(CarImage entity, List<IFormFile> files);
-        IResult Update(CarImage entity);
-        IResult Delete(CarImage entity);
+        IDataResult<List<CarImageDto>> GetAll();
+        IDataResult<CarImageDto> GetById(int id);
+        IResult Add(CarImageDto entity, List<IFormFile> files);
+        IResult Update(CarImageDto entity);
+        IResult Delete(CarImageDto entity);
     }
 }

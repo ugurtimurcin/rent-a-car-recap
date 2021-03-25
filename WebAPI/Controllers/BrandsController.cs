@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
-using Entities;
-using Microsoft.AspNetCore.Http;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -43,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        public IActionResult Add(BrandDto brand)
         {
             var result = _brandService.Add(brand);
             if (result.Success)
@@ -54,7 +49,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("edit")]
-        public IActionResult Edit(Brand brand)
+        public IActionResult Edit(BrandDto brand)
         {
             var result = _brandService.Update(brand);
             if (result.Success)
@@ -65,7 +60,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult Delete(Brand brand)
+        public IActionResult Delete(BrandDto brand)
         {
             var result = _brandService.Delete(brand);
             if (result.Success)

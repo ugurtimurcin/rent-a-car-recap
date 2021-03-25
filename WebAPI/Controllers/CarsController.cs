@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
-using Entities;
-using Microsoft.AspNetCore.Http;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -76,7 +71,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(CarDto car)
         {
             var result = _carService.Add(car);
             if (result.Success)
@@ -87,7 +82,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("edit")]
-        public IActionResult Edit(Car car)
+        public IActionResult Edit(CarDto car)
         {
             var result = _carService.Update(car);
             if (result.Success)
@@ -98,7 +93,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(CarDto car)
         {
             var result = _carService.Delete(car);
             if (result.Success)

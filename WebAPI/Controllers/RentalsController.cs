@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
-using Entities;
-using Microsoft.AspNetCore.Http;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -43,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rental rental)
+        public IActionResult Add(RentalDto rental)
         {
             var result = _rentalService.Add(rental);
             if (result.Success)
@@ -54,7 +49,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("add")]
-        public IActionResult Edit(Rental rental)
+        public IActionResult Edit(RentalDto rental)
         {
             var result = _rentalService.Update(rental);
             if (result.Success)
@@ -65,7 +60,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult Delete(Rental rental)
+        public IActionResult Delete(RentalDto rental)
         {
             var result = _rentalService.Delete(rental);
             if (result.Success)
