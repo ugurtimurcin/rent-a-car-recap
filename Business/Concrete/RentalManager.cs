@@ -62,9 +62,12 @@ namespace Business.Concrete
         private IResult CheckIsCarAvailable(int id, DateTime? date)
         {
             var car = _rentalDal.Get(x => x.Id == id);
-            if (car.ReturnDate == null || car.ReturnDate >= date )
+            if (car != null)
             {
-                return new ErrorResult(Message.CarIsOnRent);
+                if (car.ReturnDate == null || car.ReturnDate <= date)
+                {
+                    return new ErrorResult(Message.CarIsOnRent);
+                }
             }
 
             return new SuccessResult();
